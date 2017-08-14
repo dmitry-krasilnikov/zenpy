@@ -94,7 +94,7 @@ class BaseApi(object):
         :param url: The url to pass to to the requests method.
         :param kwargs: Any additional kwargs to pass on to requests.
         """
-        log.debug("{}: {} - {}".format(http_method.__name__.upper(), url, kwargs))
+        log.debug("{0}: {1} - {2}".format(http_method.__name__.upper(), url, kwargs))
         if self.ratelimit is not None:
             # This path indicates we're taking a proactive approach to not hit the rate limit
             response = self._ratelimit(http_method=http_method, url=url, **kwargs)
@@ -172,9 +172,9 @@ class BaseApi(object):
             pretty_response = response
         for handler in self._response_handlers:
             if handler.applies_to(self, response):
-                log.debug("{} matched: {}".format(handler.__name__, pretty_response))
+                log.debug("{0} matched: {1}".format(handler.__name__, pretty_response))
                 return handler(self).build(response)
-        raise ZenpyException("Could not handle response: {}".format(pretty_response))
+        raise ZenpyException("Could not handle response: {0}".format(pretty_response))
 
     def _serialize(self, zenpy_object):
         """ Serialize a Zenpy object to JSON """
@@ -273,7 +273,7 @@ class Api(BaseApi):
         """
         if method_name:
             if not hasattr(self.endpoint, method_name):
-                raise ZenpyException("{} has no method named '{}'".format(self.endpoint, method_name))
+                raise ZenpyException("{0} has no method named '{1}'".format(self.endpoint, method_name))
             return getattr(self.endpoint, method_name).sideload
         else:
             return self.endpoint.sideload
@@ -475,7 +475,7 @@ class UserIdentityApi(Api):
         :param identity: Identity object to be created
         """
         if not isinstance(identity, Identity):
-            raise ZenpyException("Invalid type - expected Identity received: {}".format(type(identity)))
+            raise ZenpyException("Invalid type - expected Identity received: {0}".format(type(identity)))
         if isinstance(user, User):
             user = user.id
         return UserIdentityRequest(self).perform("POST", user, identity)

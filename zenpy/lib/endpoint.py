@@ -168,7 +168,7 @@ class AttachmentEndpoint(BaseEndpoint):
             if value:
                 if '&' not in query:
                     query += '&'
-                query += '{}={}'.format(key, value)
+                query += '{0}={1}'.format(key, value)
         return query
 
 
@@ -290,12 +290,12 @@ class SatisfactionRatingEndpoint(BaseEndpoint):
 
         base_url = self.endpoint + '?'
         if score:
-            result = base_url + "score={}".format(score)
+            result = base_url + "score={0}".format(score)
         else:
             result = base_url
 
         if sort_order:
-            result += '&sort_order={}'.format(sort_order)
+            result += '&sort_order={0}'.format(sort_order)
         return result
 
 
@@ -321,12 +321,12 @@ class MacroEndpoint(BaseEndpoint):
             if key == 'id':
                 url_out += self._single(self.endpoint, value)
             else:
-                url_out += '&{}={}'.format(key, value)
+                url_out += '&{0}={1}'.format(key, value)
 
         if sort_order:
-            url_out += '&sort_order={}'.format(sort_order)
+            url_out += '&sort_order={0}'.format(sort_order)
         if sort_by:
-            url_out += '&sort_by={}'.format(sort_by)
+            url_out += '&sort_by={0}'.format(sort_by)
         return url_out
 
 
@@ -336,15 +336,15 @@ class ChatEndpoint(BaseEndpoint):
             raise ZenpyException("Only expect a single keyword to the ChatEndpoint")
         endpoint_path = self.endpoint
         if 'ids' in kwargs:
-            endpoint_path = "{}?ids={}".format(self.endpoint, ','.join(kwargs['ids']))
+            endpoint_path = "{0}?ids={1}".format(self.endpoint, ','.join(kwargs['ids']))
         else:
             for key, value in kwargs.items():
                 if key == 'email':
-                    endpoint_path = '{}/email/{}'.format(self.endpoint, value)
+                    endpoint_path = '{0}/email/{1}'.format(self.endpoint, value)
                 elif self.endpoint == 'departments' and key == 'name':
-                    endpoint_path = '{}/name/{}'.format(self.endpoint, value)
+                    endpoint_path = '{0}/name/{1}'.format(self.endpoint, value)
                 else:
-                    endpoint_path = "{}/{}".format(self.endpoint, value)
+                    endpoint_path = "{0}/{1}".format(self.endpoint, value)
                 break
         return endpoint_path
 
@@ -355,7 +355,7 @@ class ChatSearchEndpoint(BaseEndpoint):
         if args:
             conditions.append(' '.join(args))
 
-        conditions.extend(["{}:{}".format(k, v) for k, v in kwargs.items()])
+        conditions.extend(["{0}:{1}".format(k, v) for k, v in kwargs.items()])
         return self.endpoint + " AND ".join(conditions)
 
 
@@ -365,8 +365,8 @@ class ViewSearchEndpoint(BaseEndpoint):
         if len(args) > 1:
             raise ZenpyException("Only query can be passed as an arg!")
         elif len(args) == 1:
-            params.append("query={}".format(args[0]))
-        params.extend(["{}={}".format(k, v) for k, v in kwargs.items()])
+            params.append("query={0}".format(args[0]))
+        params.extend(["{0}={1}".format(k, v) for k, v in kwargs.items()])
         return self.endpoint + "&".join(params).lower()
 
 

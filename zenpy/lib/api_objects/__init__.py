@@ -20,7 +20,7 @@ class BaseObject(object):
 
     def __repr__(self):
         def stringify(item):
-            return item if isinstance(item, int) else "'{}'".format(item)
+            return item if isinstance(item, int) else "'{0}'".format(item)
 
         if hasattr(self, 'id'):
             return "[%s(id=%s)]" % (self.__class__.__name__,

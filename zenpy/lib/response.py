@@ -226,7 +226,7 @@ class CombinationResponseHandler(GenericZendeskResponseHandler):
         # a ticket and audit key.
         if 'ticket' and 'audit' in zenpy_objects:
             return zenpy_objects['ticket_audit']
-        raise ZenpyException("Could not process response: {}".format(response))
+        raise ZenpyException("Could not process response: {0}".format(response))
 
 
 class TagResponseHandler(ResponseHandler):
@@ -264,7 +264,7 @@ class SlaPolicyResponseHandler(GenericZendeskResponseHandler):
             return response_objects['sla_policy']
         elif response_objects:
             return response_objects['definitions']
-        raise ZenpyException("Could not handle response: {}".format(response_json))
+        raise ZenpyException("Could not handle response: {0}".format(response_json))
 
 
 class ChatResponseHandler(ResponseHandler):
@@ -281,7 +281,7 @@ class ChatResponseHandler(ResponseHandler):
         elif 'docs' in response_json:
             chat_list = response_json['docs'].values()
         else:
-            raise ZenpyException("Unexpected response: {}".format(response_json))
+            raise ZenpyException("Unexpected response: {0}".format(response_json))
         for chat in chat_list:
             chats.append(self.api._object_mapping.object_from_json('chat', chat))
         return chats
