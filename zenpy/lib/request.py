@@ -29,7 +29,7 @@ class RequestHandler(object):
             return self.post(*args, **kwargs)
         elif http_method == 'delete':
             return self.delete(*args, **kwargs)
-        raise ZenpyException("{} cannot handle HTTP method: {}".format(self.__class__.__name__, http_method))
+        raise ZenpyException("{0} cannot handle HTTP method: {1}".format(self.__class__.__name__, http_method))
 
     @abstractmethod
     def put(self, api_objects, *args, **kwargs):
@@ -64,7 +64,7 @@ class BaseZendeskRequest(RequestHandler):
         for zenpy_object in zenpy_objects:
             if type(zenpy_object) is not expected_type:
                 raise ZenpyException(
-                    "Invalid type - expected {} found {}".format(expected_type, type(zenpy_object))
+                    "Invalid type - expected {0} found {1}".format(expected_type, type(zenpy_object))
                 )
 
 
@@ -329,7 +329,7 @@ class ChatApiRequest(RequestHandler):
     def flatten_chat_object(self, chat_object, parent_key=''):
         items = []
         for key, value in chat_object.items():
-            new_key = "{}.{}".format(parent_key, key) if parent_key else key
+            new_key = "{0}.{1}".format(parent_key, key) if parent_key else key
             if isinstance(value, dict):
                 items.extend(self.flatten_chat_object(value, new_key).items())
             else:

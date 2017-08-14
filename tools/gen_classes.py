@@ -80,7 +80,7 @@ class Init(TemplateObject):
     def __init__(self, attributes):
         self.attributes = attributes
         self.init_params = ", ".join(
-            ["{}=None".format(a.attr_name)
+            ["{0}=None".format(a.attr_name)
              for a in attributes
              if not a.attr_name.startswith('_') and a.attr_name])
         self.attributes = attributes
@@ -164,7 +164,7 @@ class Attribute(object):
         if attr_name == 'from':
             attr_name = 'from_'
 
-        self.key = '_{}'.format(attr_name) if attr_name == 'timestamp' else attr_name
+        self.key = '_{0}'.format(attr_name) if attr_name == 'timestamp' else attr_name
         self.attr_docs = attr_docs
         self.object_type = self.get_object_type(attr_name)
         self.object_name = self.get_object_name(attr_name, attr_value)
@@ -268,7 +268,7 @@ class BaseObject(object):
 
     def __repr__(self):
         def stringify(item):
-            return item if isinstance(item, int) else "'{}'".format(item)
+            return item if isinstance(item, int) else "'{0}'".format(item)
         if hasattr(self, 'id'):
             return "[%s(id=%s)]" % (self.__class__.__name__, stringify(self.id))
         elif hasattr(self, 'token'):

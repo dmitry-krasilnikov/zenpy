@@ -122,9 +122,9 @@ class ZendeskObjectMapping(object):
 
     def format_key(self, key, parent):
         if key == 'result':
-            key = "{}_result".format(get_object_type(parent))
+            key = "{0}_result".format(get_object_type(parent))
         elif key in ('metadata', 'from', 'system', 'photo', 'thumbnails'):
-            key = '{}'.format(key)
+            key = '{0}'.format(key)
         return key
 
 

@@ -54,7 +54,7 @@ def setup_package():
     print("setup_package called")
     zenpy_client, recorder = configure()
     with recorder.use_cassette(cassette_name="setup_package-create-tickets", serialize_with='prettyjson'):
-        err_template = "{} found in test environment, bailing out!"
+        err_template = "{0} found in test environment, bailing out!"
         assert_empty(zenpy_client.tickets(), err_template.format("Tickets"))
         assert_empty(zenpy_client.users(), err_template.format("Users"),
                      ignore_func=lambda x: x.role != "admin" or x.name != "Mailer-daemon")
@@ -73,9 +73,9 @@ def teardown_package():
     zenpy_client, recorder = configure()
     with recorder.use_cassette(cassette_name="teardown_package", serialize_with='prettyjson'):
         n = chunk_action(zenpy_client.tickets(), zenpy_client.tickets.delete)
-        print("Deleted {} tickets".format(n))
+        print("Deleted {0} tickets".format(n))
         n = chunk_action(zenpy_client.users(), zenpy_client.users.delete, ignore_func=lambda x: x.role == "admin")
-        print("Deleted {} users".format(n))
+        print("Deleted {0} users".format(n))
 
 
 def configure():
@@ -88,7 +88,7 @@ def configure():
         config.define_cassette_placeholder(
             '<ZENPY-CREDENTIALS>',
             str(base64.b64encode(
-                "{}/token:{}".format(credentials['email'], credentials[auth_key]).encode('utf-8')
+                "{0}/token:{1}".format(credentials['email'], credentials[auth_key]).encode('utf-8')
             ))
         )
     session = requests.Session()

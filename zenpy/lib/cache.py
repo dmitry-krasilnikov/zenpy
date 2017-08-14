@@ -88,7 +88,7 @@ class ZenpyCache(object):
 
     def __setitem__(self, key, value):
         if not issubclass(type(value), BaseObject):
-            raise ZenpyCacheException("{} is not a subclass of BaseObject!".format(type(value)))
+            raise ZenpyCacheException("{0} is not a subclass of BaseObject!".format(type(value)))
         self.cache[key] = value
 
     def __delitem__(self, key):
@@ -157,7 +157,7 @@ def add_to_cache(zenpy_object):
         return
     attr_name = _cache_key_attribute(object_type)
     cache_key = getattr(zenpy_object, attr_name)
-    log.debug("Caching: [{}({}={})]".format(zenpy_object.__class__.__name__, attr_name, cache_key))
+    log.debug("Caching: [{0}({1}={2})]".format(zenpy_object.__class__.__name__, attr_name, cache_key))
     cache_mapping[object_type][cache_key] = zenpy_object
 
 
@@ -165,7 +165,7 @@ def purge_cache(object_type):
     """ Purge the named cache of all values. If no cache exists for object_type, nothing is done """
     if object_type in cache_mapping:
         cache = cache_mapping[object_type]
-        log.debug("Purging [{}] cache of {} values.".format(object_type, len(cache)))
+        log.debug("Purging [{0}] cache of {1} values.".format(object_type, len(cache)))
         cache.purge()
 
 
